@@ -16,7 +16,7 @@ export class UpdateComponent implements OnInit {
   currentlyChecked: CheckBoxType;
   check_box_type = CheckBoxType;
   id: number;
-  object: Array<any> = [];
+  object:Array<any> = [];
   constructor(private update: CrudserviceService, private router: Router, private formbuilder: FormBuilder, private activeroute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -34,28 +34,16 @@ export class UpdateComponent implements OnInit {
     this.update.viewdetails(this.id).subscribe((res: any) => {
       this.object = res
       console.log(res)
-      this.reactive.patchValue({
-        coursename: res.name,
-        levels: res.levels.name,
-        categories: res.categories.name,
-        slug: res.slug,
-        tags: res.tags,
-        leveloverride: res.levelOverride,
-        enrollment: res.enrollmentPoints,
-        completion: res.completionPoints,
-        desc: res.description,
-        metakey: res.meta_key,
-        metadesc: res.meta_des,
-        
-
-      })
-
+      //console.log(this.object)
+      //console.log(res.levels.name)
       this.object = arrayparse(this.object);
       //this function is to make the response (in json) as array because ngFor is only for arrays.In backend if returned as array this is not needed. 
       function arrayparse(object) {
         return new Array(object);
       }
-      //console.log(this.object1)
+      this.loadvalue()
+      // this.object=this.object[0];
+      // console.log(this.object[0].levels.name)
     }, error => {
       console.log(error);
     });
@@ -76,12 +64,23 @@ export class UpdateComponent implements OnInit {
     metadesc: new FormControl(),
     video: new FormControl()
   })
-  //   loadvalue()
-  //   {
-  // this.reactive.patchValue({
-  // coursename:this.object
-  // });
-  //   }
+    loadvalue()
+    {
+      this.reactive.patchValue({
+        coursename: this.object[0].name,
+        levels: this.object[0].levels.id,
+        categories: this.object[0].categories.id,
+        slug: this.object[0].slug,
+        tags: this.object[0].tag,
+        leveloverride: this.object[0].levelOverride,
+        enrollment: this.object[0].enrollmentPoints,
+        completion: this.object[0].completionPoints,
+        desc: this.object[0].description,
+        metakey: this.object[0].meta_key,
+        metadesc: this.object[0].meta_desc,
+        
+      });
+    }
   viewvideos() {
     this.update.viewvideos().subscribe((res: any) => {
       this.videoss = res;
@@ -112,7 +111,10 @@ export class UpdateComponent implements OnInit {
 
     this.currentlyChecked = targetType;
   }
-
+save()
+{
+  console.log(this.reactive.value);
+}
   // form(){
   //   this.reactive=this.formbuilder.group({
   //     coursename:[''],

@@ -6,7 +6,7 @@
     <h2 class="left">Update Course</h2>
     <div class="right">
     <button type="button" class="btn btn-primary" style="margin-right:10px" >Save as new version</button>
-    <button type="button" class="btn btn-primary" style="margin-right:10px" >Save as Draft</button>
+    <button type="button" class="btn btn-primary" style="margin-right:10px" (click)="save()">Save as Draft</button>
     <button type="button" class="btn btn-primary" style="margin-right:10px" (click)="back()">Back</button>
    </div>
    </div>
@@ -15,7 +15,7 @@
         <div class="form-group row">
             <label for="coursename" class="control-label col-sm-2">Course Name:</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" id="coursename" name="coursename" formControlName="coursename">
+                <input type="text" class="form-control" id="coursename" name="coursename" formControlName="coursename" readonly>
             </div>
         </div>
         <div class="form-group row">
@@ -45,7 +45,7 @@
                     https://qa.revature.com/REV/course/
                 </div>
                 <div class="col-sm"> 
-                    <input type="text" id="slug" name="slug" class="form-control" formControlName="slug"></div>        
+                    <input type="text" id="slug" name="slug" class="form-control" formControlName="slug" readonly></div>        
                 </div>
             </div>
             </div>
@@ -59,8 +59,8 @@
         <div class="form-group row">
             <label for="leveloverride" class="control-label col-sm-2">Level Override</label>
             <div class="col-sm-5">
-                <input type="radio" name="leveloverride" value="true" formControlName="leveloverride"> On
-                <input type="radio" name="leveloverride" value="false" formControlName="leveloverride"> Off
+                <input type="radio" name="leveloverride" value=true formControlName="leveloverride"> On
+                <input type="radio" name="leveloverride" value=false formControlName="leveloverride"> Off
             </div>
         </div>
         <div class="form-group row">
