@@ -1,0 +1,58 @@
+<div>
+<app-navbar></app-navbar>
+</div>
+  
+<div  class="row"class="container">
+    <div>
+        <h2 class="left">Courses</h2>
+        <div class="right">
+            <button type="button" (click)="new()" class="btn btn-primary">Create New</button>&nbsp;
+
+        </div>
+
+    </div>
+</div>
+<hr>
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Mode</th>
+                <th scope="col">Category</th>
+                <th scope="col">Level</th>
+                <th scope="col">Created By</th>
+                <th scope="col">Status</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let obj of object; let i=index">
+                <td>{{i+1}}</td>
+                <td><a [routerLink]="['details']" [queryParams]="{ id: obj.id }">{{obj.name}}</a></td>
+                
+                <td>
+                    <ng-container *ngIf="obj.mode=='p' ; then publish else draft"></ng-container>
+                    <ng-template #publish>Published</ng-template>
+                    <ng-template #draft>Draft</ng-template>
+                </td>
+                <td>{{obj.categories.name}}</td>
+                <td>{{obj.levels.name}}</td>
+                <td>{{obj.created_by}}</td>
+                <td>
+                    <ng-container *ngIf="obj.active;then active else inactive"></ng-container>
+                    <ng-template #active><button type="button" class="btn btn-warning btn-sm btn-block" (click)="status(obj.id)">Active</button>
+                    </ng-template>
+                    <ng-template #inactive><button type="button" class="btn btn-dark btn-sm btn-block" (click)="status(obj.id)">Inactive</button>
+                    </ng-template>
+                </td>
+                <td>
+                   <i class="fa fa-edit" [routerLink]="['update']" [queryParams]="{ id: obj.id }"></i>&nbsp; <!-- (click)=edit(obj.id) -->
+                    <i class="fa fa-clone" ></i>&nbsp;
+                    <i class="fa fa-trash" (click)=delete(obj.id)></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

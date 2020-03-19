@@ -1,0 +1,7 @@
+
+<div *ngFor="let o of video">
+    
+    <iframe  width="560" height="315" [src]="o.url|videopipe" frameborder="0" allowfullscreen></iframe>
+    <br>
+    <label><b>Display Name:</b>{{o.name}}</label><br>
+</div>

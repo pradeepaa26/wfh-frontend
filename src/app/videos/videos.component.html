@@ -1,0 +1,32 @@
+  
+<div  class="row"class="container">
+    <div>
+        <h2 class="left">Videos</h2>
+
+    </div>
+</div>
+<hr>
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Video Name</th>
+                <th scope="col">URL</th>
+                <th scope="col">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let obj of object; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{obj.name}}</td>
+                <td>{{obj.url}}</td>
+                <td>
+                    <ng-container *ngIf="obj.active;then active else inactive"></ng-container>
+                    <ng-template #active>Active</ng-template>
+                    <ng-template #inactive>Inactive</ng-template>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

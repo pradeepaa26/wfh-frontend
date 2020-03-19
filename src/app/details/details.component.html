@@ -1,0 +1,86 @@
+<div>
+    <app-navbar></app-navbar>
+    </div>
+    
+<div class="container">
+    <div>
+        <h2 class="left">Courses</h2>
+        <div class="right">
+            <button type="button" class="btn btn-primary" style="margin-right:10px">Edit</button>
+            <button type="button" class="btn btn-primary" style="margin-right:10px">Clone</button>
+            <button type="button" class="btn btn-primary" style="margin-right:10px">Delete</button>
+            <button type="button" class="btn btn-primary" style="margin-right:10px" (click)=back()>Back</button>
+        </div>
+    </div>
+    <hr>
+    <div *ngFor="let o of object">
+        <div class="center">
+            <div class="alert alert-primary" style="text-align: center;">
+                <b>{{o.name}}</b> -
+            </div>
+            <div *ngIf=o.levels.name><b>level :</b> {{o.levels.name}}
+            </div>
+            <div *ngIf=o.categories.name>
+                <b> Category : </b>{{o.categories.name}}
+            </div>
+            <div *ngIf=o.slug>
+                <b> Slug: </b><a href="#">https://qa.revature.com/REV/course/{{o.slug}}</a>
+            </div>
+            <b>Level Over-ride:</b>
+        </div>
+
+        <div>
+            <ng-container *ngIf="o.available_for==0 ; then presignup else second"></ng-container>
+            <ng-template #presignup><b>Available for:</b> Pre sign-up</ng-template>
+            <ng-template #second>
+                <ng-container *ngIf="o.available_for==1 ; then slug else dashboard"></ng-container>
+                <ng-template #slug><b>Available for:</b>Logged in via Slug</ng-template>
+                <ng-template #dashboard><b>Available for:</b>Dashboard</ng-template>
+            </ng-template>
+        </div>
+        <div>
+            <ng-container *ngIf="o.active== false;then active else inactive"></ng-container>
+            <ng-template #active><b>Active :</b> No</ng-template>
+            <ng-template #inactive><b>Active :</b> Yes</ng-template>
+        </div>
+        <div *ngIf=o.enrollmentPoints>
+            <b>Enrollment Activity Points: </b>{{o.enrollmentPoints}}
+        </div>
+        <diV *ngIf=o.completionPoints>
+            <b>Completion Activity Points: </b>{{o.completionPoints}}
+        </diV>
+        <div *ngIf=o.tag>
+            <b> Tags:</b> {{o.tag}}
+        </div>
+        <div>
+            <ng-container *ngIf="o.mode=='p' ; then publish else draft"></ng-container>
+            <ng-template #publish><b>Mode:</b> Publish</ng-template>
+            <ng-template #draft><b>Mode:</b> Draft</ng-template>
+        </div>
+        <div *ngIf=o.created_by>
+            <b>Created By:</b> {{o.created_by}}
+        </div>
+        <div *ngIf=o.created_on>
+            <b>Created On: </b>{{o.created_on|date}}
+        </div>
+        <div *ngIf=o.modified_by>
+            <b>Modified By:</b> {{o.modified_by}}
+        </div>
+        <div *ngIf=o.modified_on>
+            <b>Modified On:</b> {{o.modified_on|date}}
+        </div>
+        <div *ngIf=o.texts>
+            <b>Course content:</b>
+            <span *ngFor="let t of o.texts">{{t.name}} </span>
+        </div>
+        <div>
+            <b>Video content:</b>
+        </div>
+        <div *ngIf=o.courseSubscribedVideoObj>
+            <span *ngFor="let t of o.courseSubscribedVideoObj">
+                <a [routerLink]="['video']" [queryParams]="{ id: t.videos.id }">{{t.videos.url}}</a><br>
+                <!-- <ng-template *ngFor="let s of t.videos">{{s.name}}</ng-template> -->
+            </span>
+        </div>
+    </div>
+</div>

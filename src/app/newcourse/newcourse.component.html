@@ -1,0 +1,132 @@
+<div>
+    <app-navbar></app-navbar>
+    </div>
+    
+<div class="container">
+    <div>
+    <h2 class="left">Courses</h2>
+    <div class="right">
+    <button type="button" class="btn btn-primary" style="margin-right:10px" (click)="publish()">Publish</button>
+    <button type="button" class="btn btn-primary" style="margin-right:10px" (click)="draft()">Save and Continue</button>
+    <button type="button" class="btn btn-primary" style="margin-right:10px" (click)="draft()">Save as Draft</button>
+    <button type="button" class="btn btn-primary" style="margin-right:10px" (click)="back()">Back</button>
+    </div>
+    </div>
+    <hr>
+    <form [formGroup]="reactive">
+        <div class="form-group row">
+            <label for="coursename" class="control-label col-sm-2">Course Name:</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="coursename" name="coursename" [(ngModel)]="course_name" formControlName="coursename">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="levels" class="control-label col-sm-2">Level:</label>
+            <div class="col-sm-5">
+                <select id="levels" class="form-control" formControlName="levels">
+                    <option value="" disabled selected>select</option>
+                    <option *ngFor="let level of Levels" [value]="level.id">{{level.name}}</option>
+                </select>
+                
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="categories" class="control-label col-sm-2">Categories:</label>
+            <div class="col-sm-5">
+                <select id="categories" class="form-control" formControlName="categories">
+                    <option value="" disabled selected>select</option>
+                    <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="tags" class="control-label col-sm-2">Slug:</label>
+            <div class="col-sm-5">
+                <div class="row">
+                <div class="col-sm">
+                    https://qa.revature.com/REV/course/
+                </div>
+                <div class="col-sm"> 
+                    <input type="text" id="slug" name="slug" class="form-control" [value]=course_name formControlName="slug"></div>        
+                </div>
+            </div>
+            </div>
+        
+        <div class="form-group row">
+            <label for="tags" class="control-label col-sm-2">Tags:</label>
+            <div class="col-sm-5">
+                <input type="text" id="tags" name="tags" class="form-control" formControlName="tags">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="leveloverride" class="control-label col-sm-2">Level Override</label>
+            <div class="col-sm-5">
+                <input type="radio" name="leveloverride" value="true" formControlName="leveloverride"> On
+                <input type="radio" name="leveloverride" value="false" formControlName="leveloverride"> Off
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="available" class="control-label col-sm-2">Available for:</label>
+            <div class="control-label col-sm-3">
+
+                <div class="checkbox">
+
+                    <label><input type="checkbox" id="presignup" name="presignup" [checked]="currentlyChecked === check_box_type.presignup" (click)="selectCheckBox(check_box_type.presignup)">Pre-signup</label>
+                    <label><input type="checkbox" id="sluglogin" name="sluglogin" [checked]="currentlyChecked === check_box_type.sluglogin" (click)="selectCheckBox(check_box_type.sluglogin)">
+                        Logged in users via slug</label>
+                    <label><input type="checkbox" id="dashboard" name="dashboard" [checked]="currentlyChecked === check_box_type.dashboard" (click)="selectCheckBox(check_box_type.dashboard)"> Dashboard</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="enrollment" class="control-label col-sm-2"> Enrollment Activity Points</label>
+            <div class="col-sm-5">
+                <input type="number" min="0" oninput="validity.valid||(value='');" id="enrollment"  value=100  class="form-control"  formControlName="enrollment">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="completion" class="control-label col-sm-2">Completion Activity Points :</label>
+            <div class="col-sm-5">
+                <input type="number" min="0" oninput="validity.valid||(value='');" id="completion"  value=100 class="form-control"  formControlName="completion">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="desc" class="control-label col-sm-2">Description :</label>
+            <div class="col-sm-5">
+                <input type="text" id="desc" name="description" class="form-control" formControlName="desc">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="metakey" class="control-label col-sm-2">Meta Keyword :</label>
+            <div class="col-sm-5">
+                <input type="text" id="metakey" name="metakey" class="form-control" formControlName="metakey">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="metadesc" class="control-label col-sm-2">Meta Description :</label>
+            <div class="col-sm-5">
+                <input type="text" id="metadesc" name="metadesc" class="form-control" formControlName="metadesc">
+            </div>
+        </div>
+        <!-- <div class="form-group row">
+            <label for="textname" class="control-label col-sm-2">Text content</label>
+            <div class="col-sm-5">
+           <div>
+               <input type="text" id="textname" name="textname" class="form-control" formControlName="textname" placeholder="text name">
+           </div>
+           <div>
+            <angular-editor formControlName="htmlContent"></angular-editor>
+           </div> 
+        </div>
+        </div> -->
+        <div class="form-group row">
+            <label for="videos" class="control-label col-sm-2">Video:</label>
+            <div class="col-sm-5">
+                <select id="videos" class="form-control" formControlName="video" multiple>
+                    <option value="" disabled selected>select</option>
+                    <option *ngFor="let video of videoss" [value]="video.id">{{video.name}}</option>
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
